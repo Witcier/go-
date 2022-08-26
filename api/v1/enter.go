@@ -1,5 +1,13 @@
 package v1
 
-type Enter struct{}
+import "witcier/go-api/service"
 
-var ControllerGroup = new(Enter)
+type Enter struct {
+	UserApi
+}
+
+var ApiGroup = new(Enter)
+
+var (
+	userService = service.ServiceGroup.UserService
+)

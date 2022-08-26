@@ -23,10 +23,13 @@ func Verify(data interface{}) error {
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {
 			fmt.Println(err)
+			return err
 		}
 
 		for _, e := range err.(validator.ValidationErrors) {
 			fmt.Println(e.Translate(trans))
+			return e
+
 		}
 	}
 

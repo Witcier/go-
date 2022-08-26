@@ -9,10 +9,6 @@ autocode:
   server-request: /model/%s/request/
   server-router: /router/%s
   server-service: /service/%s
-  web: /web/src
-  web-api: /api
-  web-form: /view
-  web-table: /view
 captcha:
   key-long: 6
   img-width: 240
@@ -57,9 +53,9 @@ local:
 mysql:
   path: 127.0.0.1
   port: "3306"
-  prefix: "api_"
+  prefix: "oa_"
   config: charset=utf8mb4&parseTime=True&loc=Local
-  db-name: api
+  db-name: oa
   username: root
   password: "123123"
   max-idle-conns: 10
@@ -79,9 +75,10 @@ system:
   use-redis: true
   iplimit-count: 15000
   iplimit-time: 3600
+  user-default-password : "123456"
 zap:
   level: info
-  prefix: '[api]'
+  prefix: '[oa]'
   format: console
   director: log
   encode-level: LowercaseColorLevelEncoder

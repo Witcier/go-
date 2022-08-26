@@ -14,5 +14,13 @@ func main() {
 	zap.ReplaceGlobals(global.Log)
 	global.DB = initialize.Gorm()
 
+	// 数据库迁移
+	if global.DB != nil {
+		initialize.RegisterTables(global.DB)
+		db, _ := global.DB.DB()
+
+		defer db.Close()
+	}
+
 	core.RunServer()
 }

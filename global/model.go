@@ -6,8 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type API_MODEL struct {
-	ID        uint `gorm:"primarykey"`
+type ID struct {
+	ID uint `gorm:"primarykey"`
+}
+
+type Timestamp struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt

@@ -1,5 +1,7 @@
 package service
 
-type Enter struct{}
+type Enter struct {
+	UserService
+}
 
 var ServiceGroup = new(Enter)

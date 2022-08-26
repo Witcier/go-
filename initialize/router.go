@@ -32,7 +32,7 @@ func Routers() *gin.Engine {
 	}
 
 	// 私有路由
-	PrivateRouter := Router.Group("")
+	PrivateRouter := Router.Group("api")
 	// PrivateRouter.Use(middleware.Auth())
 	{
 		apiRouter.InitUserRouter(PrivateRouter)

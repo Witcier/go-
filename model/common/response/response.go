@@ -9,7 +9,7 @@ import (
 type Response struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"msg"`
-	Data interface{} `json:""data`
+	Data interface{} `json:"data"`
 }
 
 const (
@@ -45,7 +45,11 @@ func Resp(code int, data interface{}, msg string, c *gin.Context) {
 	})
 }
 
-func Success(c *gin.Context, data interface{}) {
+func Success(c *gin.Context) {
+	Resp(HTTP_OK, map[string]interface{}{}, "success", c)
+}
+
+func SuccessWithData(c *gin.Context, data interface{}) {
 	Resp(HTTP_OK, data, "success", c)
 }
 

@@ -1,12 +1,18 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	v1 "witcier/go-api/api/v1"
+
+	"github.com/gin-gonic/gin"
+)
 
 type UserRouter struct{}
 
 func (r *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
-	router := Router.Group("test")
+	router := Router.Group("")
+	userApi := v1.ApiGroup.UserApi
 	{
-		router.GET("/test")
+		router.POST("/users", userApi.StoreUser)
+		router.PATCH("/users/:id", userApi.UpdateUser)
 	}
 }
