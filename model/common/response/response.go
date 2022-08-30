@@ -60,8 +60,8 @@ func Error(code int, msg string, c *gin.Context) {
 	return
 }
 
-func ValidateFail(c *gin.Context) {
-	Error(ERROR_VALIDATE, "validate fail", c)
+func ValidateFail(c *gin.Context, msg string) {
+	Error(ERROR_VALIDATE, msg, c)
 }
 
 func DbError(c *gin.Context) {

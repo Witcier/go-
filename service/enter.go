@@ -1,6 +1,7 @@
 package service
 
 type Enter struct {
+	LoginService
 	UserService
 }
 

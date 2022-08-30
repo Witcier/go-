@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"fmt"
 	"witcier/go-api/global"
 	"witcier/go-api/model"
 	"witcier/go-api/model/common/response"
@@ -15,12 +14,9 @@ type UserApi struct{}
 
 func (a *UserApi) StoreUser(c *gin.Context) {
 	var r request.StoreUser
-	if err1 := c.ShouldBindJSON(&r); err1 != nil {
-		fmt.Println(err1)
-	}
-	fmt.Println(r)
-	if err := utils.Verify(r); err != nil {
-		response.ValidateFail(c)
+	errMsg := utils.Verify(c, &r)
+	if errMsg != "" {
+		response.ValidateFail(c, errMsg)
 		return
 	}
 
@@ -49,14 +45,14 @@ func (a *UserApi) StoreUser(c *gin.Context) {
 func (a *UserApi) UpdateUser(c *gin.Context) {
 	var r request.UpdateUser
 	id := utils.ParseParamID(c, "id")
-	_ = c.ShouldBindJSON(&r)
-	if err := utils.Verify(r); err != nil {
-		response.ValidateFail(c)
+	errMsg := utils.Verify(c, &r)
+	if errMsg != "" {
+		response.ValidateFail(c, errMsg)
 		return
 	}
 
 	user := &model.User{
-		ID: global.ID{
+		ModelID: global.ModelID{
 			ID: id,
 		},
 		Username:     r.Username,

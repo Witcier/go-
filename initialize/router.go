@@ -36,6 +36,7 @@ func Routers() *gin.Engine {
 	// PrivateRouter.Use(middleware.Auth())
 	{
 		apiRouter.InitUserRouter(PrivateRouter)
+		apiRouter.InitLoginRouter(PrivateRouter)
 	}
 
 	global.Log.Info("router register success")

@@ -14,6 +14,8 @@ func main() {
 	zap.ReplaceGlobals(global.Log)
 	global.DB = initialize.Gorm()
 
+	global.Trans = initialize.ValidateTrans("en")
+
 	// 数据库迁移
 	if global.DB != nil {
 		initialize.RegisterTables(global.DB)

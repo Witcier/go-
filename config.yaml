@@ -10,9 +10,13 @@ autocode:
   server-router: /router/%s
   server-service: /service/%s
 captcha:
-  key-long: 6
+  key-long: 4
   img-width: 240
   img-height: 80
+  expires: 180
+  prefix-key: CAPTCHA_
+  max-skew: 0.9
+  dot-count: 100
 cors:
   mode: whitelist
   whitelist:
@@ -44,9 +48,10 @@ db-list:
   log-zap: false
 jwt:
   signing-key: 6e193eef-9bd0-4fc0-81a3-ac887e8ef2f2
-  expires-time: 604800
+  expires-hour: 1
   buffer-time: 86400
   issuer: qmPlus
+  token-type: Bearer
 local:
   path: uploads/file
   store-path: uploads/file

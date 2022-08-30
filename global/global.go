@@ -5,6 +5,7 @@ import (
 
 	"golang.org/x/sync/singleflight"
 
+	ut "github.com/go-playground/universal-translator"
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -19,6 +20,7 @@ var (
 	Log                *zap.Logger
 	Config             config.Server
 	ConcurrencyControl = &singleflight.Group{}
+	Trans              ut.Translator
 )
 
 func GetGlobalDBByName(dbName string) *gorm.DB {

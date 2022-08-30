@@ -15,7 +15,6 @@ type StoreUser struct {
 }
 
 type UpdateUser struct {
-	ID           uint   `json:"id" gorm:"primarykey"`
 	Username     string `json:"username"`
 	RealName     string `json:"realName"`
 	Email        string `json:"email" validate:"email"`

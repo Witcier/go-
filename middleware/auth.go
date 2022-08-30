@@ -1,8 +1,6 @@
 package middleware
 
 import (
-	"strings"
-
 	"witcier/go-api/model/common/response"
 	"witcier/go-api/utils"
 
@@ -11,7 +9,7 @@ import (
 
 func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := StripBearerTokenString(c.Request.Header.Get("Authorization"))
+		token := utils.GetBearerToken(c)
 		if token == "" {
 			response.Unauthorized(c)
 			return
@@ -28,12 +26,4 @@ func Auth() gin.HandlerFunc {
 		c.Set("claims", claims)
 		c.Next()
 	}
-}
-
-func StripBearerTokenString(token string) string {
-	// Should be a bearer token
-	if len(token) > 6 && strings.ToUpper(token[0:7]) == "BEARER " {
-		return token[7:]
-	}
-	return token
 }

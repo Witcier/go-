@@ -6,12 +6,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type ID struct {
-	ID uint `gorm:"primarykey"`
+type ModelID struct {
+	ID uint `json:"id" gorm:"primarykey"`
 }
 
 type Timestamp struct {
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt
+	CreatedAt time.Time      `json:"createdAt"`
+	UpdatedAt time.Time      `json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `json:"-"`
 }

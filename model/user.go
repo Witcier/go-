@@ -6,9 +6,9 @@ import (
 )
 
 type User struct {
-	global.ID
+	global.ModelID
 	Username      string    `json:"username" gorm:"not null;unique;comment:用户名"`
-	Password      string    `json:"password" gorm:"not null;comment:用户密码"`
+	Password      string    `json:"-" gorm:"not null;comment:用户密码"`
 	RealName      string    `json:"realName" gorm:"not null;comment:真实姓名"`
 	Email         string    `json:"email" gorm:"not null;unique;comment:邮箱"`
 	Phone         string    `json:"phone" gorm:"not null;unique;comment:国内手机号"`
