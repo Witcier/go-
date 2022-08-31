@@ -15,11 +15,11 @@ import (
 
 type LoginService struct{}
 
-var j = utils.NewJWT()
-
 func (s *LoginService) Login(req request.Login) (response.LoginResponse, error) {
 	var user model.User
 	var resp response.LoginResponse
+
+	j := utils.NewJWT()
 
 	err := global.DB.Where("username = ?", req.Username).First(&user).Error
 	if err != nil {
@@ -58,7 +58,12 @@ func (s *LoginService) Refresh(oldToken string) (response.LoginResponse, error) 
 	var user model.User
 	var resp response.LoginResponse
 
+	j := utils.NewJWT()
+
 	claims, err := j.ParseToken(oldToken)
+	if err != nil {
+		return resp, err
+	}
 	claims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(time.Hour * global.Config.JWT.ExpiresHour))
 
 	err = global.DB.Where("ID = ?", claims.BaseClaims.ID).First(&user).Error

@@ -12,7 +12,9 @@ func (r *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	router := Router.Group("")
 	userApi := v1.ApiGroup.UserApi
 	{
+		router.GET("/users", userApi.ListUser)
 		router.POST("/users", userApi.StoreUser)
 		router.PATCH("/users/:id", userApi.UpdateUser)
+		router.DELETE("/users/:id", userApi.DeleteUser)
 	}
 }

@@ -59,7 +59,7 @@ func (j *JWT) RefreshToken(oldToken string, claims request.CustomClaims) (string
 }
 
 func (j *JWT) ParseToken(tokenString string) (*request.CustomClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &request.CustomClaims{}, func(t *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &request.CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return j.Signingkey, nil
 	})
 

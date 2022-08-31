@@ -2,7 +2,6 @@ package v1
 
 import (
 	"witcier/go-api/global"
-	"witcier/go-api/model/common/response"
 	"witcier/go-api/model/request"
 	resp "witcier/go-api/model/response"
 	"witcier/go-api/utils"
@@ -29,11 +28,11 @@ func (a *LoginApi) Captcha(c *gin.Context) {
 	if err != nil {
 		global.Log.Error("Captcha fail", zap.Error(err))
 
-		response.ErrorInternal(c)
+		utils.ErrorInternal(c)
 		return
 	}
 
-	response.SuccessWithData(c, resp.CaptchaResponse{
+	utils.SuccessWithData(c, resp.CaptchaResponse{
 		CaptchaID:         id,
 		CaptchaImgContent: b64s,
 	})
@@ -43,24 +42,24 @@ func (a *LoginApi) Login(c *gin.Context) {
 	var r request.Login
 	msg := utils.Verify(c, &r)
 	if msg != "" {
-		response.ValidateFail(c, msg)
+		utils.ValidateFail(c, msg)
 		return
 	}
 
 	// 验证码
 	ok := store.Verify(r.CaptchaID, r.CaptchaCode, true)
 	if !ok {
-		response.CaptchaMistake(c)
+		utils.CaptchaMistake(c)
 		return
 	}
 
 	data, err := loginService.Login(r)
 	if err != nil {
-		response.DbError(c)
+		utils.DbError(c)
 		return
 	}
 
-	response.SuccessWithData(c, data)
+	utils.SuccessWithData(c, data)
 }
 
 func (a *LoginApi) Refresh(c *gin.Context) {
@@ -68,9 +67,9 @@ func (a *LoginApi) Refresh(c *gin.Context) {
 
 	data, err := loginService.Refresh(token)
 	if err != nil {
-		response.DbError(c)
+		utils.DbError(c)
 		return
 	}
 
-	response.SuccessWithData(c, data)
+	utils.SuccessWithData(c, data)
 }

@@ -1,9 +1,6 @@
 package v1
 
 import (
-	"witcier/go-api/global"
-	"witcier/go-api/model"
-	"witcier/go-api/model/common/response"
 	"witcier/go-api/model/request"
 	"witcier/go-api/utils"
 
@@ -12,34 +9,38 @@ import (
 
 type UserApi struct{}
 
+func (a *UserApi) ListUser(c *gin.Context) {
+	var r request.List
+	errMsg := utils.Verify(c, &r)
+	if errMsg != "" {
+		utils.ValidateFail(c, errMsg)
+		return
+	}
+
+	data, err := userService.ListUser(r)
+	if err != nil {
+		utils.DbError(c)
+		return
+	}
+
+	utils.SuccessWithData(c, data)
+}
+
 func (a *UserApi) StoreUser(c *gin.Context) {
 	var r request.StoreUser
 	errMsg := utils.Verify(c, &r)
 	if errMsg != "" {
-		response.ValidateFail(c, errMsg)
+		utils.ValidateFail(c, errMsg)
 		return
 	}
 
-	user := &model.User{
-		Username:     r.Username,
-		RealName:     r.RealName,
-		Email:        r.Email,
-		Phone:        r.Phone,
-		Sex:          r.Sex,
-		Birth:        r.Birth,
-		EntryTime:    r.EntryTime,
-		Status:       r.Status,
-		IsAdmin:      r.IsAdmin,
-		DepartmentID: r.DepartmentID,
-		PositionID:   r.PositionID,
-	}
-	_, err := userService.StoreUser(*user)
+	err := userService.StoreUser(r)
 	if err != nil {
-		response.DbError(c)
+		utils.DbError(c)
 		return
 	}
 
-	response.Success(c)
+	utils.Success(c)
 }
 
 func (a *UserApi) UpdateUser(c *gin.Context) {
@@ -47,31 +48,25 @@ func (a *UserApi) UpdateUser(c *gin.Context) {
 	id := utils.ParseParamID(c, "id")
 	errMsg := utils.Verify(c, &r)
 	if errMsg != "" {
-		response.ValidateFail(c, errMsg)
+		utils.ValidateFail(c, errMsg)
 		return
 	}
 
-	user := &model.User{
-		ModelID: global.ModelID{
-			ID: id,
-		},
-		Username:     r.Username,
-		RealName:     r.RealName,
-		Email:        r.Email,
-		Phone:        r.Phone,
-		Sex:          r.Sex,
-		Birth:        r.Birth,
-		EntryTime:    r.EntryTime,
-		Status:       r.Status,
-		IsAdmin:      r.IsAdmin,
-		DepartmentID: r.DepartmentID,
-		PositionID:   r.PositionID,
-	}
-
-	if err := userService.UpdateUser(*user); err != nil {
-		response.DbError(c)
+	if err := userService.UpdateUser(id, r); err != nil {
+		utils.DbError(c)
 		return
 	}
 
-	response.Success(c)
+	utils.Success(c)
+}
+
+func (a *UserApi) DeleteUser(c *gin.Context) {
+	id := utils.ParseParamID(c, "id")
+
+	if err := userService.DeleteUser(id); err != nil {
+		utils.DbError(c)
+		return
+	}
+
+	utils.Success(c)
 }

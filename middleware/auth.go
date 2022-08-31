@@ -1,8 +1,8 @@
 package middleware
 
 import (
+	"fmt"
 	"time"
-	"witcier/go-api/model/common/response"
 	"witcier/go-api/utils"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +12,7 @@ func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := utils.GetBearerToken(c)
 		if token == "" {
-			response.Unauthorized(c)
+			utils.Unauthorized(c)
 			return
 		}
 
@@ -20,7 +20,8 @@ func Auth() gin.HandlerFunc {
 
 		claims, err := j.ParseToken(token)
 		if err != nil || claims.ExpiresAt.Unix() < time.Now().Unix() {
-			response.Unauthorized(c)
+			fmt.Println(err)
+			utils.Unauthorized(c)
 			return
 		}
 
