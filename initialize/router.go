@@ -29,14 +29,15 @@ func Routers() *gin.Engine {
 		PublicRouter.GET("/health", func(c *gin.Context) {
 			c.JSON(200, "ok")
 		})
+		apiRouter.InitLoginRouter(PublicRouter)
 	}
 
 	// 私有路由
 	PrivateRouter := Router.Group("api")
-	// PrivateRouter.Use(middleware.Auth())
+	PrivateRouter.Use(middleware.Auth())
 	{
 		apiRouter.InitUserRouter(PrivateRouter)
-		apiRouter.InitLoginRouter(PrivateRouter)
+
 	}
 
 	global.Log.Info("router register success")

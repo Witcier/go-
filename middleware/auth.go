@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"time"
 	"witcier/go-api/model/common/response"
 	"witcier/go-api/utils"
 
@@ -18,12 +19,11 @@ func Auth() gin.HandlerFunc {
 		j := utils.NewJWT()
 
 		claims, err := j.ParseToken(token)
-		if err != nil {
+		if err != nil || claims.ExpiresAt.Unix() < time.Now().Unix() {
 			response.Unauthorized(c)
 			return
 		}
 
-		c.Set("claims", claims)
 		c.Next()
 	}
 }

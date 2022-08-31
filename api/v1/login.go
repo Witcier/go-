@@ -64,5 +64,13 @@ func (a *LoginApi) Login(c *gin.Context) {
 }
 
 func (a *LoginApi) Refresh(c *gin.Context) {
-	
+	token := utils.GetBearerToken(c)
+
+	data, err := loginService.Refresh(token)
+	if err != nil {
+		response.DbError(c)
+		return
+	}
+
+	response.SuccessWithData(c, data)
 }

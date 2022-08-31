@@ -14,5 +14,6 @@ func (r *LoginRouter) InitLoginRouter(Router *gin.RouterGroup) {
 	{
 		router.GET("/captcha", loginApi.Captcha)
 		router.POST("/login", loginApi.Login)
+		router.PATCH("/refresh", loginApi.Refresh)
 	}
 }
