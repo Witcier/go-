@@ -1,8 +1,8 @@
 package request
 
 type StoreDepartment struct {
-	Name   string `json:"name" validate:"required"`
-	Remark string `json:"remark" validate:"required"`
+	Name   string `json:"name" binding:"required"`
+	Remark string `json:"remark" binding:"required"`
 }
 
 type UpdateDepartment struct {
