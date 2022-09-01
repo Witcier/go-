@@ -37,6 +37,7 @@ func Routers() *gin.Engine {
 	PrivateRouter.Use(middleware.Auth())
 	{
 		apiRouter.InitUserRouter(PrivateRouter)
+		apiRouter.InitDepartmentRouter(PrivateRouter)
 
 	}
 

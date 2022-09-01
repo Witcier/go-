@@ -1,7 +1,6 @@
 package initialize
 
 import (
-	"fmt"
 	"witcier/go-api/global"
 
 	"github.com/gin-gonic/gin/binding"
@@ -21,8 +20,6 @@ func ValidateTrans(locale string) ut.Translator {
 
 	uni := ut.New(zhT, zhT, enT)
 	if trans, ok := uni.GetTranslator(locale); !ok {
-		fmt.Errorf("uni.GetTranslator(%s) fail", locale)
-
 		return nil
 	} else {
 		enTrans.RegisterDefaultTranslations(validate, trans)

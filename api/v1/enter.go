@@ -5,11 +5,13 @@ import "witcier/go-api/service"
 type Enter struct {
 	UserApi
 	LoginApi
+	DepartmentApi
 }
 
 var ApiGroup = new(Enter)
 
 var (
-	userService  = service.ServiceGroup.UserService
-	loginService = service.ServiceGroup.LoginService
+	userService       = service.ServiceGroup.UserService
+	loginService      = service.ServiceGroup.LoginService
+	departmentService = service.ServiceGroup.DepartmentService
 )
