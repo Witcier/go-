@@ -8,7 +8,7 @@ import (
 
 type DepartmentRouter struct{}
 
-func (r *LoginRouter) InitDepartmentRouter(Router *gin.RouterGroup) {
+func (r *DepartmentRouter) InitDepartmentRouter(Router *gin.RouterGroup) {
 	router := Router.Group("")
 	departmentApi := v1.ApiGroup.DepartmentApi
 	{

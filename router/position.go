@@ -8,7 +8,7 @@ import (
 
 type PositionRouter struct{}
 
-func (r *LoginRouter) InitPositionRouter(Router *gin.RouterGroup) {
+func (r *PositionRouter) InitPositionRouter(Router *gin.RouterGroup) {
 	router := Router.Group("")
 	positionApi := v1.ApiGroup.PositionApi
 	{

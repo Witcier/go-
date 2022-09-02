@@ -5,6 +5,7 @@ type Enter struct {
 	UserService
 	DepartmentService
 	PositionService
+	MenuService
 }
 
 var ServiceGroup = new(Enter)

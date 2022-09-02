@@ -39,6 +39,7 @@ func Routers() *gin.Engine {
 		apiRouter.InitUserRouter(PrivateRouter)
 		apiRouter.InitDepartmentRouter(PrivateRouter)
 		apiRouter.InitPositionRouter(PrivateRouter)
+		apiRouter.InitMenuRouter(PrivateRouter)
 
 	}
 
