@@ -6,7 +6,7 @@ import (
 
 type List struct {
 	global.Category
-	Child []List
+	Child []List `json:"child"`
 }
 
 func Category(data []global.Category, pid uint) []List {

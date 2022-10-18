@@ -9,13 +9,14 @@ import (
 	"witcier/go-api/model/response"
 	"witcier/go-api/utils"
 
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"go.uber.org/zap"
 )
 
 type LoginService struct{}
 
-func (s *LoginService) Login(req request.Login) (response.LoginResponse, error) {
+func (s *LoginService) Login(c *gin.Context, req request.Login) (response.LoginResponse, error) {
 	var user model.User
 	var resp response.LoginResponse
 
@@ -43,6 +44,14 @@ func (s *LoginService) Login(req request.Login) (response.LoginResponse, error) 
 
 		return resp, err
 	}
+
+	global.DB.Updates(&model.User{
+		ModelID: global.ModelID{
+			ID: user.ID,
+		},
+		LastLoginTime: time.Now(),
+		LastLoginIp:   c.ClientIP(),
+	})
 
 	resp = response.LoginResponse{
 		User:      user,

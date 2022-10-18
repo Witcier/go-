@@ -5,13 +5,13 @@ import (
 	"witcier/go-api/model"
 	"witcier/go-api/model/request"
 	"witcier/go-api/model/response"
-	"witcier/go-api/utils"
+	"witcier/go-api/utils/category"
 )
 
 type MenuService struct{}
 
 func (menuService *MenuService) ListMenu() (response.CategoryResult, error) {
-	var menus []global.Category
+	var menus []model.Menu
 	var resp response.CategoryResult
 
 	err := global.DB.Model(&model.Menu{}).Find(&menus).Error
@@ -19,7 +19,7 @@ func (menuService *MenuService) ListMenu() (response.CategoryResult, error) {
 		return resp, err
 	}
 
-	list := utils.Category(menus, 0)
+	list := category.MenuCategory(menus, 0)
 	resp = response.CategoryResult{
 		List: list,
 	}

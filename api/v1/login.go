@@ -53,7 +53,7 @@ func (a *LoginApi) Login(c *gin.Context) {
 		return
 	}
 
-	data, err := loginService.Login(r)
+	data, err := loginService.Login(c, r)
 	if err != nil {
 		utils.DbError(c)
 		return

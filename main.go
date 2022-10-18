@@ -24,5 +24,7 @@ func main() {
 		defer db.Close()
 	}
 
+	initialize.GenerateTokenForTest()
+
 	core.RunServer()
 }

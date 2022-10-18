@@ -6,6 +6,7 @@ type RouterGroup struct {
 	PositionRouter
 	DepartmentRouter
 	MenuRouter
+	PersonRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

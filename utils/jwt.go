@@ -4,8 +4,10 @@ import (
 	"errors"
 	"time"
 	"witcier/go-api/global"
+	"witcier/go-api/model"
 	"witcier/go-api/model/request"
 
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -86,4 +88,22 @@ func (j *JWT) ParseToken(tokenString string) (*request.CustomClaims, error) {
 	} else {
 		return nil, TokenInvalid
 	}
+}
+
+func GetAuthUser(c *gin.Context) (model.User, error) {
+	var user model.User
+
+	token := GetBearerToken(c)
+	j := NewJWT()
+	claims, err := j.ParseToken(token)
+	if err != nil {
+		return user, err
+	}
+
+	err = global.DB.Where("ID = ?", claims.BaseClaims.ID).First(&user).Error
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
