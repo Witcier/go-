@@ -10,6 +10,7 @@ type Enter struct {
 	MenuApi
 	PersonApi
 	RoleApi
+	PermissionApi
 }
 
 var ApiGroup = new(Enter)
@@ -22,4 +23,5 @@ var (
 	menuService       = service.ServiceGroup.MenuService
 	personService     = service.ServiceGroup.PersonService
 	roleService       = service.ServiceGroup.RoleService
+	permissionService = service.ServiceGroup.PermissionService
 )
