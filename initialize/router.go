@@ -41,6 +41,7 @@ func Routers() *gin.Engine {
 		apiRouter.InitPositionRouter(PrivateRouter)
 		apiRouter.InitMenuRouter(PrivateRouter)
 		apiRouter.InitPersonRouter(PrivateRouter)
+		apiRouter.InitRoleRouter(PrivateRouter)
 	}
 
 	global.Log.Info("router register success")

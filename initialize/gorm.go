@@ -19,6 +19,7 @@ func RegisterTables(db *gorm.DB) {
 		model.Department{},
 		model.Position{},
 		model.Menu{},
+		model.Role{},
 	)
 
 	if err != nil {
