@@ -13,6 +13,7 @@ func (r *PersonRouter) InitPersonRouter(Router *gin.RouterGroup) {
 	personApi := v1.ApiGroup.PersonApi
 	{
 		router.GET("/person/detail", personApi.PersonDetail)
+		router.GET("/person/menu", personApi.Menu)
 		router.PATCH("/person/update/password", personApi.PersonUpdatePassword)
 	}
 }

@@ -70,3 +70,21 @@ func (a *UserApi) DeleteUser(c *gin.Context) {
 
 	utils.Success(c)
 }
+
+func (a *UserApi) Role(c *gin.Context) {
+	var r request.StoreUserRole
+
+	id := utils.ParseParamID(c, "id")
+	errMsg := utils.Verify(c, &r)
+	if errMsg != "" {
+		utils.ValidateFail(c, errMsg)
+		return
+	}
+
+	if err := userService.Role(id, r); err != nil {
+		utils.DbError(c)
+		return
+	}
+
+	utils.Success(c)
+}

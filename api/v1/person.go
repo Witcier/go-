@@ -35,3 +35,13 @@ func (a *PersonApi) PersonUpdatePassword(c *gin.Context) {
 
 	utils.Success(c)
 }
+
+func (a *PersonApi) Menu(c *gin.Context) {
+	data, err := personService.Menu(c)
+	if err != nil {
+		utils.DbError(c)
+		return
+	}
+
+	utils.SuccessWithData(c, data)
+}

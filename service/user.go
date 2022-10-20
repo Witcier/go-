@@ -96,3 +96,22 @@ func (userService *UserService) DeleteUser(id uint) error {
 
 	return nil
 }
+
+func (userService *UserService) Role(id uint, r request.StoreUserRole) error {
+	var user model.User
+	var roles []model.Role
+
+	err := global.DB.Where("id = ?", id).First(&user).Error
+	if err != nil {
+		return err
+	}
+
+	err = global.DB.Find(&roles, r.RoleIds).Error
+	if err != nil {
+		return err
+	}
+
+	global.DB.Model(&user).Association("Roles").Replace(&roles)
+
+	return nil
+}

@@ -15,6 +15,7 @@ func (r *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 		router.GET("/users", userApi.ListUser)
 		router.POST("/users", userApi.StoreUser)
 		router.PATCH("/users/:id", userApi.UpdateUser)
+		router.PATCH("/users/role/:id", userApi.Role)
 		router.DELETE("/users/:id", userApi.DeleteUser)
 	}
 }

@@ -27,3 +27,7 @@ type UpdateUser struct {
 	DepartmentID uint   `json:"departmentID"`
 	PositionID   uint   `json:"positionID"`
 }
+
+type StoreUserRole struct {
+	RoleIds []int `json:"roleIds"`
+}
