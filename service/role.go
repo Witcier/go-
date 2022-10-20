@@ -68,3 +68,81 @@ func (s *RoleService) Delete(id uint) error {
 
 	return nil
 }
+
+func (s *RoleService) Menu(id uint, r request.StoreRoleMenu) error {
+	var role model.Role
+	var menus []model.Menu
+	err := global.DB.Where("ID = ?", id).First(&role).Error
+	if err != nil {
+		return err
+	}
+
+	err = global.DB.Find(&menus, r.MenuIDs).Error
+	if err != nil {
+		return err
+	}
+
+	global.DB.Model(&role).Association("Menus").Replace(&menus)
+
+	return nil
+}
+
+func (s *RoleService) GetMenu(id uint) (response.RoleMenuResponse, error) {
+	var role model.Role
+	var menus []model.Menu
+	var resp response.RoleMenuResponse
+	var menuIds []int
+
+	err := global.DB.Where("ID = ?", id).Preload("Menus").Find(&role).Error
+	if err != nil {
+		return resp, err
+	}
+
+	menus = role.Menus
+	for _, v := range menus {
+		menuIds = append(menuIds, int(v.ID))
+	}
+
+	resp.MenuIds = menuIds
+
+	return resp, err
+}
+
+func (s *RoleService) Permission(id uint, r request.StoreRolePermission) error {
+	var role model.Role
+	var permissions []model.Permission
+	err := global.DB.Where("ID = ?", id).First(&role).Error
+	if err != nil {
+		return err
+	}
+
+	err = global.DB.Find(&permissions, r.PermissionIds).Error
+	if err != nil {
+		return err
+	}
+
+	global.DB.Model(&role).Association("Permissions").Replace(&permissions)
+
+	return nil
+}
+
+func (s *RoleService) GetPermission(id uint) (response.RolePermissionResponse, error) {
+	var role model.Role
+	var permissions []model.Permission
+	var resp response.RolePermissionResponse
+	var permissionIds []int
+
+	err := global.DB.Where("ID = ?", id).Preload("Permissions").Find(&role).Error
+	if err != nil {
+		return resp, err
+	}
+
+	permissions = role.Permissions
+	for _, v := range permissions {
+		permissionIds = append(permissionIds, int(v.ID))
+	}
+
+	resp.PermissionIds = permissionIds
+
+	return resp, err
+}

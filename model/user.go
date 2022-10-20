@@ -21,5 +21,6 @@ type User struct {
 	PositionID    uint      `json:"positionID" gorm:"not null;default:0;comment:职位ID"`
 	LastLoginTime time.Time `json:"lastLoginTime" gorm:"default:null;comment:最后登陆时间"`
 	LastLoginIp   string    `json:"lastLoginIp" gorm:"default:null;comment:最后登陆 Ip"`
+	Roles         []Role    `gorm:"many2many:user_roles;"`
 	global.Timestamp
 }

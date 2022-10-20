@@ -69,3 +69,61 @@ func (a *RoleApi) Delete(c *gin.Context) {
 
 	utils.Success(c)
 }
+
+func (a *RoleApi) Menu(c *gin.Context) {
+	var r request.StoreRoleMenu
+	id := utils.ParseParamID(c, "id")
+
+	errMsg := utils.Verify(c, &r)
+	if errMsg != "" {
+		utils.ValidateFail(c, errMsg)
+		return
+	}
+
+	if err := roleService.Menu(id, r); err != nil {
+		utils.DbError(c)
+		return
+	}
+
+	utils.Success(c)
+}
+
+func (a *RoleApi) GetMenu(c *gin.Context) {
+	id := utils.ParseParamID(c, "id")
+
+	data, err := roleService.GetMenu(id)
+	if err != nil {
+		utils.DbError(c)
+	}
+
+	utils.SuccessWithData(c, data)
+}
+
+func (a *RoleApi) Permission(c *gin.Context) {
+	var r request.StoreRolePermission
+	id := utils.ParseParamID(c, "id")
+
+	errMsg := utils.Verify(c, &r)
+	if errMsg != "" {
+		utils.ValidateFail(c, errMsg)
+		return
+	}
+
+	if err := roleService.Permission(id, r); err != nil {
+		utils.DbError(c)
+		return
+	}
+
+	utils.Success(c)
+}
+
+func (a *RoleApi) GetPermission(c *gin.Context) {
+	id := utils.ParseParamID(c, "id")
+
+	data, err := roleService.GetPermission(id)
+	if err != nil {
+		utils.DbError(c)
+	}
+
+	utils.SuccessWithData(c, data)
+}

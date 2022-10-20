@@ -9,3 +9,11 @@ type UpdateRole struct {
 	Name   string `json:"name"`
 	Remark string `json:"remark"`
 }
+
+type StoreRoleMenu struct {
+	MenuIDs []int `json:"menuIds"`
+}
+
+type StoreRolePermission struct {
+	PermissionIds []int `json:"PermissionIds"`
+}
