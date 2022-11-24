@@ -3,9 +3,9 @@ package middleware
 import (
 	"context"
 	"errors"
-	"net/http"
 	"time"
 	"witcier/go-api/global"
+	"witcier/go-api/utils"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -21,11 +21,7 @@ type LimitConfig struct {
 func (l LimitConfig) LimitWithTime() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if err := l.CheckOrMark(l.GenerationKey(c), l.Expire, l.Limit); err != nil {
-			c.JSON(http.StatusOK, gin.H{
-				"code": 500,
-				"msg":  err,
-			})
-			c.Abort()
+			utils.ErrorInternal(c)
 			return
 		} else {
 			c.Next()
